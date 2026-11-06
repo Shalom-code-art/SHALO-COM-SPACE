@@ -1,0 +1,209 @@
+@import "tailwindcss" source(none);
+
+/*
+ * Sources explicites : sans cette declaration, Tailwind analyse tout le dossier
+ * du projet (il n'y a pas de depot Git pour appliquer .gitignore) et peut lire
+ * des fichiers binaires (base SQLite, images) qui produisent des utilitaires
+ * invalides. Seul le code source est analyse.
+ */
+@source "../app";
+@source "../components";
+@source "../lib";
+
+@theme {
+  --color-brand-50: #eff5fc;
+  --color-brand-100: #d9e8f8;
+  --color-brand-200: #b6d1f0;
+  --color-brand-300: #86b1e4;
+  --color-brand-400: #518bd4;
+  --color-brand-500: #2d6cbe;
+  --color-brand-600: #1e54a1;
+  --color-brand-700: #194384;
+  --color-brand-800: #16376b;
+  --color-brand-900: #122b52;
+  --color-brand-950: #0a1b35;
+
+  --color-accent-50: #fff6e9;
+  --color-accent-100: #ffe8c6;
+  --color-accent-200: #ffcf8d;
+  --color-accent-300: #ffb154;
+  --color-accent-400: #fb9628;
+  --color-accent-500: #f5821f;
+  --color-accent-600: #d96510;
+  --color-accent-700: #b34c11;
+  --color-accent-800: #8e3d14;
+  --color-accent-900: #753314;
+
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-800: #1e293b;
+  --color-ink-900: #0f172a;
+
+  --font-sans: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+  --shadow-pop: 0 12px 40px -12px rgba(10, 27, 53, 0.35);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink-50 text-ink-800 antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-900;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-ink-300;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-ink-200/80 bg-white shadow-[var(--shadow-card)];
+  }
+  .card-pad {
+    @apply p-4 sm:p-5;
+  }
+  .card-title {
+    @apply text-[15px] font-semibold tracking-tight text-ink-900;
+  }
+  .card-sub {
+    @apply text-xs text-ink-500;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-ink-200 bg-white px-3.5 py-2 text-sm font-medium text-ink-700 transition hover:border-ink-300 hover:bg-ink-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply border-brand-700 bg-brand-700 text-white hover:border-brand-800 hover:bg-brand-800;
+  }
+  .btn-accent {
+    @apply border-accent-500 bg-accent-500 text-white hover:border-accent-600 hover:bg-accent-600;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent text-ink-600 hover:bg-ink-100;
+  }
+  .btn-danger {
+    @apply border-rose-200 bg-rose-50 text-rose-700 hover:border-rose-300 hover:bg-rose-100;
+  }
+  .btn-sm {
+    @apply px-2.5 py-1.5 text-xs;
+  }
+  .btn-icon {
+    @apply h-9 w-9 rounded-xl p-0;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm text-ink-800 shadow-[inset_0_1px_1px_rgba(15,23,42,0.03)] outline-none transition placeholder:text-ink-400 focus:border-brand-400 focus:ring-4 focus:ring-brand-100 disabled:bg-ink-50;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-ink-600;
+  }
+  .hint {
+    @apply mt-1 text-[11px] leading-relaxed text-ink-400;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium;
+  }
+
+  .table-base {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .table-base thead th {
+    @apply whitespace-nowrap border-b border-ink-200 bg-ink-50/60 px-3 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-ink-500;
+  }
+  .table-base tbody td {
+    @apply border-b border-ink-100 px-3 py-2.5 align-middle text-ink-700;
+  }
+  .table-base tbody tr:hover {
+    @apply bg-brand-50/40;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-medium text-brand-100/85 transition hover:bg-white/10 hover:text-white;
+  }
+  .nav-link-active {
+    @apply bg-white/12 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14)];
+  }
+  .nav-group {
+    @apply px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-300/70;
+  }
+
+  .surface {
+    @apply rounded-2xl border border-ink-200 bg-white;
+  }
+  .kpi-value {
+    @apply text-2xl font-semibold tracking-tight text-ink-900;
+  }
+  .link {
+    @apply text-brand-700 underline-offset-2 hover:underline;
+  }
+}
+
+@layer utilities {
+  .animate-rise {
+    animation: rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade {
+    animation: fade 0.25s ease-out both;
+  }
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
